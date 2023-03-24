@@ -3,7 +3,7 @@ import { createContext, ReactNode, useContext, useState } from "react"
 import { Subscription } from "../../types/subscription"
 import { SubscriptionsContextValue } from "../../types/subscriptionsContext"
 
-const SubscriptionsContext = createContext<SubscriptionsContextValue>({
+export const SubscriptionsContext = createContext<SubscriptionsContextValue>({
   subscriptionsList: [],
   setSubscriptionsList: () => {},
 })
