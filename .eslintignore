@@ -1,0 +1,7 @@
+node_modules/
+dist/
+public
+.prettierrc
+.eslintrc.cjs
+env.d.ts
+server/
