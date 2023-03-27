@@ -8,6 +8,7 @@ import { apiClient } from "../../apiClient"
 import { useSubscriptionsContext } from "../../contexts/subscriptionsContext/subscriptionsContext"
 import { Button } from "../../components/Button"
 import styled from "styled-components"
+// import { useSubscriptionStore } from "../../stores/useSubscriptionStore"
 
 const StyledGrid = styled.div`
   display: grid;
@@ -19,6 +20,13 @@ const StyledGrid = styled.div`
 
 export const SubscriptionList = () => {
   const { subscriptionsList, setSubscriptionsList } = useSubscriptionsContext()
+  // const subscriptionsList = useSubscriptionStore(
+  //   state => state.subscriptionsList,
+  // )
+
+  // const fetchSubscriptionsList = useSubscriptionStore(
+  //   state => state.fetchSubscriptionsList,
+  // )
 
   const fetchSubscriptionsList = useCallback(async () => {
     try {
