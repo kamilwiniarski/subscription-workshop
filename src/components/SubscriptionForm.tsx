@@ -1,4 +1,4 @@
-import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Formik, Form, Field } from "formik"
 import { Button } from "./Button"
 import styled from "styled-components"
 import * as Yup from "yup"
@@ -81,10 +81,7 @@ export const SubscriptionForm = ({
 }: any) => {
   return (
     <Formik
-      initialValues={{
-        name: "",
-        amount: 0,
-      }}
+      initialValues={initialValues}
       validationSchema={
         type === "add" ? addSubscriptionSchema : updateSubscriptionSchema
       }
@@ -92,7 +89,7 @@ export const SubscriptionForm = ({
         handleSubmit(values, setSubmitting)
       }}
     >
-      {({ isSubmitting, isValid, isValidating }) => (
+      {({ isSubmitting }) => (
         <StyledForm>
           <Field name="name">
             {({ field, meta }: any) => (

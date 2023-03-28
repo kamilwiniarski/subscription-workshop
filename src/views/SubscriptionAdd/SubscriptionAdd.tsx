@@ -2,11 +2,12 @@ import { Heading } from "../../components/Heading"
 import { useCallback } from "react"
 import { apiClient } from "../../apiClient"
 import { useSubscriptionsContext } from "../../contexts/subscriptionsContext/subscriptionsContext"
-import { Subscription } from "../../types/subscription"
+import { Subscription, SubscriptionFormValues } from "../../types/subscription"
 import { useNavigate } from "react-router-dom"
 import { SubscriptionForm } from "../../components/SubscriptionForm"
 import { Button } from "../../components/Button"
 import styled from "styled-components"
+import { boolean } from "yup"
 
 export const StyledHeaderRow = styled.div`
   display: flex;
@@ -27,8 +28,10 @@ export const SubscriptionAdd = () => {
   const navigate = useNavigate()
 
   const addSubscription = useCallback(
-    async (values: any, setSubmitting: any) => {
-      const { name, amount, currency, period } = values
+    async (
+      { name, amount, currency, period }: SubscriptionFormValues,
+      setSubmitting: any,
+    ) => {
       try {
         const { data } = await apiClient.post<Subscription[]>("", {
           name,
@@ -57,7 +60,12 @@ export const SubscriptionAdd = () => {
         <Heading message={"Add new subscription"} />
       </StyledHeaderRow>
       <SubscriptionForm
-        initialValues={{ name: "", amount: 0 }}
+        initialValues={{
+          name: "",
+          amount: 0,
+          currency: "PLN",
+          period: "monthly",
+        }}
         handleSubmit={addSubscription}
         type="add"
       />

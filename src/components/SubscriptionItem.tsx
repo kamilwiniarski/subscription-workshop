@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 import { apiClient } from "../apiClient"
 import { useSubscriptionsContext } from "../contexts/subscriptionsContext/subscriptionsContext"
 import { Paragraph } from "./Paragraph"
-import { Heading } from "./Heading"
 import { Button } from "./Button"
 
 const StyledSubscriptionItemContainer = styled.div`

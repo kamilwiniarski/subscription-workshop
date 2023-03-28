@@ -2,7 +2,7 @@ import { Heading } from "../../components/Heading"
 import { useCallback } from "react"
 import { apiClient } from "../../apiClient"
 import { useSubscriptionsContext } from "../../contexts/subscriptionsContext/subscriptionsContext"
-import { Subscription } from "../../types/subscription"
+import { Subscription, SubscriptionFormValues } from "../../types/subscription"
 import { useNavigate, useParams } from "react-router-dom"
 import { SubscriptionForm } from "../../components/SubscriptionForm"
 
@@ -12,13 +12,16 @@ export const SubscriptionEdit = () => {
   const { id } = useParams()
 
   const updateSubscription = useCallback(
-    async (values: any, setSubmitting: any) => {
+    async (
+      { name, amount, currency, period }: SubscriptionFormValues,
+      setSubmitting: any,
+    ) => {
       try {
         const { data } = await apiClient.put<Subscription[]>(`/${id}`, {
-          name: values.name,
-          amount: values.amount,
-          currency: "PLN",
-          period: "monthly",
+          name,
+          amount,
+          currency,
+          period,
         })
         setSubscriptionsList(data)
         setSubmitting(false)
@@ -30,15 +33,15 @@ export const SubscriptionEdit = () => {
     [],
   )
 
-  const { name, amount } = subscriptionsList.find(
-    (sub: Subscription) => sub.id === id,
+  const { name, amount, currency, period } = subscriptionsList.find(
+    ({ id: subId }: Subscription) => subId === id,
   ) as Subscription
 
   return (
     <>
       <Heading message={"Update subscription"} />
       <SubscriptionForm
-        initialValues={{ name, amount }}
+        initialValues={{ name, amount, currency, period }}
         handleSubmit={updateSubscription}
         type="edit"
       />
