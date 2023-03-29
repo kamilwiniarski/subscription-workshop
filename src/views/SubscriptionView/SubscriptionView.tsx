@@ -2,16 +2,16 @@ import { Heading } from "../../components/Heading"
 import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { StyledHeaderRow } from "../SubscriptionAdd/SubscriptionAdd"
-import { useSubscriptionsContext } from "../../contexts/subscriptionsContext/subscriptionsContext"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import { Subscription } from "../../types/subscription"
+import { apiClient } from "../../apiClient"
 
 export const SubscriptionView = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { subscriptionsList } = useSubscriptionsContext()
-  const [currentSubscription, setCurrentSubscription] = useState(
-    subscriptionsList.find(({ id: subId }) => subId === id),
-  )
+  const [subscription, setSubscription] = useState<
+    Subscription | Record<never, never>
+  >({})
 
   const handleEdit = () => {
     navigate("./edit")
@@ -21,11 +21,20 @@ export const SubscriptionView = () => {
     navigate("/")
   }
 
+  const fetchSubscription = useCallback(async (id: string) => {
+    try {
+      const { data } = await apiClient.get<Subscription>(`/${id}`)
+      setSubscription(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
   useEffect(() => {
-    setCurrentSubscription(
-      subscriptionsList.find(({ id: subId }) => subId === id),
-    )
-  }, [subscriptionsList])
+    fetchSubscription(id as string)
+  }, [])
+
+  const { name, amount, currency, period } = subscription as Subscription
 
   return (
     <>
@@ -34,21 +43,26 @@ export const SubscriptionView = () => {
         <Heading message={`Subscription Details`} />
       </StyledHeaderRow>
 
-      <p>
-        <strong>Id:</strong> {id}
-      </p>
-      <p>
-        <strong>Name:</strong> {currentSubscription?.name}
-      </p>
-      <p>
-        <strong>Amount:</strong> {currentSubscription?.amount}
-      </p>
-      <p>
-        <strong>Currency:</strong> {currentSubscription?.currency}
-      </p>
-      <p>
-        <strong>Period:</strong> {currentSubscription?.period}
-      </p>
+      {name && (
+        <>
+          {" "}
+          <p>
+            <strong>Id:</strong> {id}
+          </p>
+          <p>
+            <strong>Name:</strong> {name}
+          </p>
+          <p>
+            <strong>Amount:</strong> {amount}
+          </p>
+          <p>
+            <strong>Currency:</strong> {currency}
+          </p>
+          <p>
+            <strong>Period:</strong> {period}
+          </p>
+        </>
+      )}
       <Button onClick={handleEdit}>Update</Button>
     </>
   )

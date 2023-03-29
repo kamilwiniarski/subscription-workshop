@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom"
 import { SubscriptionForm } from "../../components/SubscriptionForm"
 import { Button } from "../../components/Button"
 import styled from "styled-components"
-import { boolean } from "yup"
 
 export const StyledHeaderRow = styled.div`
   display: flex;
