@@ -1,0 +1,8 @@
+.detailsButton {
+  background-color: red;
+  cursor: pointer;
+}
+
+/*:global(.simpleClass) {*/
+/*  background-color: green;*/
+/*}*/

@@ -4,3 +4,15 @@
   padding: 2rem;
   text-align: center;
 }
+
+/*BEM*/
+/*.container {*/
+/*  color: red;*/
+/*}*/
+/*.container__paragraph {*/
+/*  color: gray;*/
+/*}*/
+
+/*.container__paragraph--active {*/
+/*  color: yellow;*/
+/*}*/

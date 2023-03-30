@@ -6,6 +6,7 @@ import { apiClient } from "../apiClient"
 import { useSubscriptionsContext } from "../contexts/subscriptionsContext/subscriptionsContext"
 import { Paragraph } from "./Paragraph"
 import { Button } from "./Button"
+import styles from "./subscriptionItem.module.css"
 
 const StyledSubscriptionItemContainer = styled.div`
   background-color: rgb(18, 18, 18);
@@ -88,11 +89,27 @@ export const SubscriptionItem: React.FC<Subscription> = ({
       <StyledImage />
       <StyledSubscriptionContent>
         <CardTitle>{name}</CardTitle>
+        Inline styling
+        {/*<p style={{*/}
+        {/*  background: "blue"*/}
+        {/*}}>*/}
+        {/*  Inline styled paragraph*/}
+        {/*</p>*/}
+        {/*BEM*/}
+        {/*<div className="container">*/}
+        {/*  Container in BEMish convention*/}
+        {/*  <p className="container__paragraph">Normal paragraph</p>*/}
+        {/*  <p className="container__paragraph--active">active paragraph</p>*/}
+        {/*</div>*/}
         <Paragraph>
           The amount of your subscription: {amount} {currency}
         </Paragraph>
         <Paragraph>Paid: {period}</Paragraph>
       </StyledSubscriptionContent>
+      {/*css modules global*/}
+      {/*<p className="simpleClass">*/}
+      {/*  My simple paragraph*/}
+      {/*</p>*/}
       <StyledActionRow>
         <Button>
           <Link to={`/subscription/${id}`}>Details</Link>
@@ -101,6 +118,10 @@ export const SubscriptionItem: React.FC<Subscription> = ({
         <Button isError={true} onClick={deleteSubscription}>
           Delete
         </Button>
+        {/*CSS modules*/}
+        {/*<button className={styles.detailsButton}>*/}
+        {/*  Module CSS Button*/}
+        {/*</button>*/}
       </StyledActionRow>
     </StyledSubscriptionItemContainer>
   )
