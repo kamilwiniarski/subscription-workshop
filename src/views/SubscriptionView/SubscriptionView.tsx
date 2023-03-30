@@ -1,16 +1,14 @@
 import {Heading} from "../../components/Heading"
 import {Button} from "../../components/Button"
 import {StyledHeaderRow} from "../SubscriptionAdd/SubscriptionAdd"
-import {SubscriptionsContext} from "../../contexts/subscriptionsContext/subscriptionsContext"
 import React from "react"
 import { Subscription } from "../../types/subscription"
 import {withRouter} from "./withRouter";
 import { apiClient } from "../../apiClient"
 
 class SubscriptionView extends React.Component {
-    static contextType = SubscriptionsContext;
     state: any = {
-        currentSubscription: [] // this.context.subscriptionsList.find(({ id: subId }: any) => subId === id)
+        currentSubscription: []
     }
 
     constructor(props: any) {
@@ -22,6 +20,7 @@ class SubscriptionView extends React.Component {
     fetchSubscription = async (id: string) => {
         try {
             const { data } = await apiClient.get<Subscription>(`/${id}`)
+
             this.setState(() => ({
                 currentSubscription: data
             }))
@@ -32,9 +31,6 @@ class SubscriptionView extends React.Component {
 
     componentDidMount() {
         this.fetchSubscription(this.props.params.id as string)
-        // this.setState(() => ({
-        //     currentSubscription: this.context.subscriptionsList.find(({ id: subId }: any) => subId === this.props.params.id)
-        // }))
     }
 
     handleEdit = () => {
@@ -48,7 +44,6 @@ class SubscriptionView extends React.Component {
         console.log(this)
         this.props.navigate("/")
     }
-
 
     render() {
         const { name, amount, currency, period } = this.state.currentSubscription as Subscription
